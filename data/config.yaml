@@ -1,0 +1,16 @@
+# lftp-ui application configuration options
+# These are loaded in via the Config.h header
+
+######################
+### ImGUI Settings ###
+######################
+HIGH_DPI_SCALE_FACTOR: 1.0
+WINDOW_WIDTH: 1280
+WINDOW_HEIGHT: 720
+
+###########################
+### DEBUG configuration ###
+###########################
+ENABLE_TRACE_LOGGING: 1
+# Debug levels range from 1 - 5 with 1 being the most verbose and 5 being no debug logs
+DEBUG_LEVEL: 2
