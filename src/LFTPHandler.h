@@ -22,6 +22,9 @@ public:
   // Main update loop
   void update() {}
 
+  int getConnectionState() { return m_connectionState; }
+  void setConnectionState(int state) { m_connectionState = state; }
+
 private:
   int m_connectionState = Q_CONNECTION_STATE::DISCONNECTED;
   std::thread m_Thread;

@@ -4,6 +4,8 @@
 #include <imgui.h>
 #include <memory>
 
+#include "GLFW/glfw3.h"
+#include "Helpers/GL/GLImage.h"
 #include "Helpers/QLogger.h"
 
 // Basic menu class

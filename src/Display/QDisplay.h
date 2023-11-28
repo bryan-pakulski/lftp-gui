@@ -11,6 +11,9 @@
 #include "Config/Config.h"
 #include "Helpers/QLogger.h"
 
+#include "Menus/TaskBar/TaskBar.h"
+#include "Menus/Browser/Browser.h"
+
 #include "QDisplay_Base.h"
 #include "Themes.h"
 
@@ -55,11 +58,13 @@ private:
   std::string m_glsl_version;
   std::vector<std::unique_ptr<QDisplay_Base>> m_submenus;
 
-  float backgroundR = 0.45f;
-  float backgroundG = 0.44f;
-  float backgroundB = 0.48f;
-
 private:
+  void initSubMenus() {
+    // Emplace submenus for rendering
+    m_submenus.emplace_back(new QDisplay_TaskBar(m_window));
+    m_submenus.emplace_back(new QDisplay_Browser(m_window));
+  }
+
   // Window resize callback
   static void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     // make sure the viewport matches the new window dimensions; note that width
@@ -125,13 +130,17 @@ private:
     glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
 #endif
 
-    m_window = glfwCreateWindow(CONFIG::WINDOW_WIDTH.get(), CONFIG::WINDOW_WIDTH.get(), CONFIG::PROGRAM_NAME.c_str(),
+    m_window = glfwCreateWindow(CONFIG::WINDOW_WIDTH.get(), CONFIG::WINDOW_HEIGHT.get(), CONFIG::PROGRAM_NAME.c_str(),
                                 nullptr, nullptr);
 
     if (!m_window) {
       QLogger::GetInstance().Log(LOGLEVEL::ERR, "QDisplay::QDisplay Couldn't create a GLFW window");
       cleanupDisplay();
     }
+
+    QLogger::GetInstance().Log(LOGLEVEL::DBG2,
+                               "QDisplay::QDisplay Created window of size: ", CONFIG::WINDOW_WIDTH.get(),
+                               CONFIG::WINDOW_HEIGHT.get());
 
     // Catch window resizing
     glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
@@ -164,6 +173,8 @@ private:
     } else {
       QLogger::GetInstance().Log(LOGLEVEL::INFO, "QDisplay::QDisplay:: GLAD initialized");
     }
+
+    initSubMenus();
   }
 
   ~QDisplay() { cleanupDisplay(); }

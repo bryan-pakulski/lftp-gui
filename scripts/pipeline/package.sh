@@ -8,7 +8,7 @@ mkdir -p build/lftp-ui-bin
 
 if [ -f build/lftp-ui ]; then
   mv build/lftp-ui build/lftp-ui-bin/
-  cp data/config.yaml build/lftp-ui-bin/
+  cp -ruv data build/lftp-ui-bin/
 fi
 
 # Download latest release of lftp

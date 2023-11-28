@@ -128,6 +128,9 @@ FetchContent_MakeAvailable(yaml-cpp)
 add_executable( lftp-ui 
                 src/main.cpp
                 src/LFTPHandler.cpp
+                src/Helpers/GL/GLHelper.cpp
+                src/Helpers/GL/GLImage.cpp
+                src/Display/Menus/TaskBar/TaskBar.cpp
         )
 
 # XMP has to be built manually (see src/ThirdParty/build_xmp_libraries.sh)

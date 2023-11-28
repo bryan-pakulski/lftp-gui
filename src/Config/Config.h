@@ -8,7 +8,7 @@
 
 namespace CONFIG {
 
-static YAML::Node configFile = YAML::LoadFile("config.yaml");
+static YAML::Node configFile = YAML::LoadFile("data/config.yaml");
 
 // Load config with default value if item doesn't exist
 template <class T> static T loadConfig(const std::string &configPath, const T &defaultValue) {
@@ -32,6 +32,7 @@ static CInt WINDOW_HEIGHT(loadConfig("WINDOW_HEIGHT", 720));
 
 static CFloat IMGUI_LOG_WINDOW_HEIGHT(loadConfig("IMGUI_LOG_WINDOW_HEIGHT", 900.0f));
 static CFloat IMGUI_LOG_WINDOW_WIDTH(loadConfig("IMGUI_LOG_WINDOW_WIDTH", 820.0f));
+static CFloat IMGUI_TASKBAR_HEIGHT_OFFSET(loadConfig("IMGUI_TASKBAR_HEIGHT_OFFSET", 16.0f));
 
 // Logging
 static CInt ENABLE_TRACE_LOGGING(loadConfig<int>("ENABLE_TRACE_LOGGING", 0));
