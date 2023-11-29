@@ -2,6 +2,7 @@
 
 #include "Helpers/States.h"
 
+#include <filesystem>
 #include <memory>
 #include <thread>
 #include <vector>
@@ -25,9 +26,17 @@ public:
   int getConnectionState() { return m_connectionState; }
   void setConnectionState(int state) { m_connectionState = state; }
 
+  void setActiveFile(const std::filesystem::path &filepath) { m_activeFilePath = filepath; }
+  std::filesystem::path getActiveFile() { return m_activeFilePath; }
+  void setContextWindowVisible(bool visible) { m_contextWindowVisible = visible; }
+  bool contextWindowVisible() { return m_contextWindowVisible; }
+
 private:
   int m_connectionState = Q_CONNECTION_STATE::DISCONNECTED;
+  bool m_contextWindowVisible = false;
   std::thread m_Thread;
+
+  std::filesystem::path m_activeFilePath;
 
 private:
   explicit LFTPHandler();

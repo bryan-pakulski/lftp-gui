@@ -13,6 +13,7 @@
 
 #include "Menus/TaskBar/TaskBar.h"
 #include "Menus/Browser/Browser.h"
+#include "Menus/Browser/ContextMenu.h"
 
 #include "QDisplay_Base.h"
 #include "Themes.h"
@@ -63,6 +64,7 @@ private:
     // Emplace submenus for rendering
     m_submenus.emplace_back(new QDisplay_TaskBar(m_window));
     m_submenus.emplace_back(new QDisplay_Browser(m_window));
+    m_submenus.emplace_back(new QDisplay_ContextMenu(m_window));
   }
 
   // Window resize callback

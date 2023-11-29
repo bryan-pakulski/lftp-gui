@@ -2,6 +2,7 @@
 
 #include <imgui.h>
 #include <imgui_stdlib.h>
+#include "LFTPHandler.h"
 #include "imgui_internal.h"
 #include <filesystem>
 #include <string>
@@ -82,18 +83,26 @@ public:
         if (directoryEntry.is_directory()) {
           fileType = "Folder";
           fileSize = "-";
-        } else {
+        } else if (directoryEntry.is_regular_file()) {
           fileType = "File";
-          fileSize = "-";
+          fileSize = std::to_string(directoryEntry.file_size());
         }
 
         ImGui::TableNextRow();
 
         ImGui::TableNextColumn();
         ImGui::Selectable(filenameString.data(), false, ImGuiSelectableFlags_SpanAllColumns);
-        if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
-          if (directoryEntry.is_directory()) {
-            m_current_directory = path;
+        if (ImGui::IsItemHovered()) {
+
+          if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+            if (directoryEntry.is_directory()) {
+              m_current_directory = path;
+            }
+          }
+
+          if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
+            LFTPHandler::GetInstance().setActiveFile(path);
+            LFTPHandler::GetInstance().setContextWindowVisible(true);
           }
         }
         ImGui::TableNextColumn();
@@ -112,7 +121,7 @@ public:
     ImGui::Begin(m_windowName.c_str());
 
     { // Toolbar
-      ImGui::Text("Local | ");
+      ImGui::Text("Local | %s", m_current_directory.c_str());
       ImGui::SameLine();
 
       if (ImGui::Button("<-")) {
