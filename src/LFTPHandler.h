@@ -7,6 +7,10 @@
 #include <thread>
 #include <vector>
 
+struct contentAction {
+  int panel;
+};
+
 class LFTPHandler {
 public:
 public:

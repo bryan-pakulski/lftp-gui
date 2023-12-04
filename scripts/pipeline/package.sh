@@ -11,4 +11,4 @@ if [ -f build/lftp-ui ]; then
   cp -ruv data build/lftp-ui-bin/
 fi
 
-# Download latest release of lftp
+cp -ruv lftp build/lftp-ui-bin/

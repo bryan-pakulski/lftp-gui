@@ -41,3 +41,4 @@ build/
 # Build artifacts
 *.tar.gz
 *.zip
+lftp
