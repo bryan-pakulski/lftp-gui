@@ -25,8 +25,9 @@ see the requirements below, lftp will be automatically built if it can't be foun
 
 The default configuration flags used when building locally are:
 ```
-    ./configure --prefix=/usr \
-                --with-openssl
+    ./autogen.sh
+    ./configure --without-gnutls --with-openssl
+    make -j $(nproc)
 ```
 
 Packages:
@@ -34,6 +35,7 @@ Packages:
 - libtool
 - gettext-devel
 - automake
+- gperf
 - gnulib (see: https://www.gnu.org/software/gnulib/)
   You will also need the gnulib-tool script in your path and accessible during build time, i.e.
   `ln -s $HOME/lftp-gui/build/lftp/gnulib/gnulib-tool $HOME/bin/gnulib-tool`

@@ -36,7 +36,7 @@ public:
   bool contextWindowVisible() { return m_contextWindowVisible; }
 
 private:
-  int m_connectionState = Q_CONNECTION_STATE::DISCONNECTED;
+  int m_connectionState = Q_CONNECTION_STATE::PENDING;
   bool m_contextWindowVisible = false;
   std::thread m_Thread;
 

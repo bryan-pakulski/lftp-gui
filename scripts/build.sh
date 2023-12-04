@@ -26,15 +26,7 @@ popd
 if [ ! -f "lftp" ]; then
     echo "Building lftp..."
 
-    if [ ! -d "build/lftp" ]; then
-        git clone --depth 1 --branch v4.9.2 https://github.com/lavv17/lftp.git build/lftp
-    fi
-
-    pushd build/lftp
-        echo "Running configure for LFTP..."
-        ./configure --without-gnutls --with-openssl
-        make
-    popd
+    ./scripts/build_lftp.sh
 
     echo "Done!"
 else
