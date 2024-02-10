@@ -29,6 +29,10 @@ private:
   std::unique_ptr<GLImage> m_disconnected_icon;
   std::unique_ptr<GLImage> m_timeout_icon;
 
+  std::string hostname;
+  std::string user;
+  std::string password;
+
   GLImage m_icon;
   std::string m_connString;
   float c_iconSize = 15.0f;

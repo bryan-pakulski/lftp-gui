@@ -1,4 +1,6 @@
 #include "TaskBar.h"
+#include "LFTPHandler.h"
+#include "imgui.h"
 
 QDisplay_TaskBar::QDisplay_TaskBar(GLFWwindow *w) : QDisplay_Base(w) {
 
@@ -69,22 +71,29 @@ void QDisplay_TaskBar::render() {
   }
 
   // These will only render if their corresponding flags are set
+  QDisplay_ConnectModal();
   QDisplay_LogFile();
 }
 
 void QDisplay_TaskBar::QDisplay_ConnectModal() {
   if (m_connectPopup) {
     ImGui::SetNextWindowSize(ImVec2(480.0f, 260.0f));
+    ImGui::SetNextWindowBgAlpha(0.9f);
+    ImGui::Begin("Connect");
 
-    if (ImGui::BeginPopupModal("CONNECT", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
+    ImGui::InputText("hostname: ", &hostname);
+    ImGui::InputText("username: ", &user);
+    ImGui::InputText("password: ", &password);
 
-      auto windowWidth = ImGui::GetWindowSize().x;
-      ImGui::SetCursorPosX(((windowWidth)*0.5f) - (150.0f / 2.0f));
-      if (ImGui::Button("Okay", ImVec2(150, 40))) {
-        m_connectPopup = false;
-      }
-      ImGui::EndPopup();
+    if (ImGui::Button("Connect")) {
+      LFTPHandler::GetInstance().connect(hostname, user, password);
+      m_connectPopup = false;
     }
+    ImGui::SameLine();
+    if (ImGui::Button("Cancel")) {
+      m_connectPopup = false;
+    }
+    ImGui::End();
   }
 }
 

@@ -10,9 +10,13 @@ LFTPHandler::LFTPHandler() {
 LFTPHandler::~LFTPHandler() {}
 
 bool LFTPHandler::connect(const std::string &host, const std::string &user, const std::string &pwd) {
-  std::string connect = lftp.SendCommand(std::format("lftp {}:{}@{}", user, pwd, host));
+  std::string connect = lftp.SendCommand(std::format("lftp {}", host));
+  std::string login = lftp.SendCommand(std::format("user {} {}", user, pwd));
+  std::string ls = lftp.SendCommand("ls");
 
   std::cout << connect << std::endl;
+  std::cout << login << std::endl;
+  std::cout << ls << std::endl;
 
   return true;
 }
