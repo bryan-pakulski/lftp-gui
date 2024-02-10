@@ -22,6 +22,8 @@ void QDisplay_TaskBar::render() {
     if (ImGui::BeginMenu("File")) {
 
       if (ImGui::MenuItem("Connect To Server")) {
+        ImGui::OpenPopup("CONNECT");
+        m_connectPopup = true;
       }
 
       ImGui::EndMenu();
@@ -30,7 +32,7 @@ void QDisplay_TaskBar::render() {
     if (ImGui::BeginMenu("Debug")) {
 
       if (ImGui::MenuItem("Open Log")) {
-        logFileOpen = true;
+        m_logFileOpen = true;
       }
 
       ImGui::EndMenu();
@@ -45,7 +47,7 @@ void QDisplay_TaskBar::render() {
       case Q_CONNECTION_STATE::CONNECTED:
         m_icon = *m_connected_icon;
         m_connString = "Connected";
-      case Q_CONNECTION_STATE::DISCONNECTED:
+      case Q_CONNECTION_STATE::PENDING:
         m_icon = *m_disconnected_icon;
         m_connString = "Not Connected";
       case Q_CONNECTION_STATE::CONNECTING:
@@ -70,14 +72,30 @@ void QDisplay_TaskBar::render() {
   QDisplay_LogFile();
 }
 
+void QDisplay_TaskBar::QDisplay_ConnectModal() {
+  if (m_connectPopup) {
+    ImGui::SetNextWindowSize(ImVec2(480.0f, 260.0f));
+
+    if (ImGui::BeginPopupModal("CONNECT", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
+
+      auto windowWidth = ImGui::GetWindowSize().x;
+      ImGui::SetCursorPosX(((windowWidth)*0.5f) - (150.0f / 2.0f));
+      if (ImGui::Button("Okay", ImVec2(150, 40))) {
+        m_connectPopup = false;
+      }
+      ImGui::EndPopup();
+    }
+  }
+}
+
 void QDisplay_TaskBar::QDisplay_LogFile() {
 
-  if (logFileOpen) {
+  if (m_logFileOpen) {
     ImGui::SetNextWindowBgAlpha(0.9f);
     ImGui::Begin("Log");
 
     if (ImGui::Button("Close")) {
-      logFileOpen = false;
+      m_logFileOpen = false;
     }
 
     ImGui::SameLine();

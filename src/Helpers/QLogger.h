@@ -142,7 +142,7 @@ private:
     }
 
     // Append arguments
-    ([&] { ostream << ", " << args; }(), ...);
+    ([&] { ostream << " " << args; }(), ...);
     ostream << std::endl;
 
     return true;

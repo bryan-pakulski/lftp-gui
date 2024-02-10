@@ -20,7 +20,8 @@ public:
 
 private:
   // Window triggers
-  bool logFileOpen = false;
+  bool m_logFileOpen = false;
+  bool m_connectPopup = false;
 
   // Connection status icons
   std::unique_ptr<GLImage> m_connected_icon;
@@ -40,4 +41,5 @@ private:
 
 private:
   void QDisplay_LogFile();
+  void QDisplay_ConnectModal();
 };

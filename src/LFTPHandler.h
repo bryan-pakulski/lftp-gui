@@ -7,12 +7,17 @@
 #include <thread>
 #include <vector>
 
+#include "LFTPProcess.h"
+
 struct contentAction {
   int panel;
 };
 
 class LFTPHandler {
 public:
+  // TODO: This should be on a seperate thread so our read/write operations are non blocking
+  LftpProcess lftp;
+
 public:
   static LFTPHandler &GetInstance() {
     static LFTPHandler s_lftpHandler;
@@ -29,6 +34,8 @@ public:
 
   int getConnectionState() { return m_connectionState; }
   void setConnectionState(int state) { m_connectionState = state; }
+
+  bool connect(const std::string &host, const std::string &user, const std::string &pwd);
 
   void setActiveFile(const std::filesystem::path &filepath) { m_activeFilePath = filepath; }
   std::filesystem::path getActiveFile() { return m_activeFilePath; }

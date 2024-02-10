@@ -2,6 +2,7 @@
 
 #include <imgui.h>
 #include <imgui_stdlib.h>
+#include "LFTPHandler.h"
 #include "imgui_internal.h"
 #include <filesystem>
 

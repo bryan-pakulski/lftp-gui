@@ -8,6 +8,8 @@ int main() {
 
   std::srand(std::time(nullptr));
 
+  LFTPHandler &lftp_handle = LFTPHandler::GetInstance();
+
   while (!glfwWindowShouldClose(QDisplay::GetInstance().getWindow())) {
 
     // Clean OpenGL frame & imgui interface
@@ -19,7 +21,7 @@ int main() {
       QDisplay::GetInstance().drawMenus();
     }
 
-    LFTPHandler::GetInstance().update();
+    lftp_handle.update();
 
     // Display any captured errors as a modal popup over the top of the screen
     ErrorHandler::GetInstance().pollErrors();
